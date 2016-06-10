@@ -16,6 +16,7 @@
  The chip is a highly accurate 6 DOF inertial measurement unit with long-term stable operation over a wide range of temperatures.
  It’s high robustness to mechanical shock makes is suitable for designing reliable platform stabilization systems, for example in cameras and drones.The board
  communicates with the target MCU either through I2C or SPI interfaces (along with an additional INT pin).
+
 ---
 
 ### Example
