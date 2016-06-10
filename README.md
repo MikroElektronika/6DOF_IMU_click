@@ -5,7 +5,7 @@
 ---
 [Product Page](http://www.mikroe.com/click/6dof-imu/)
 
-[Manual Page](docs.mikroe.com/6_DOF_IMU_click)
+[Manual Page](docs.mikroe.com/6_DOF_IMU_click/)
 
 ---
 
