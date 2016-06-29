@@ -36,7 +36,7 @@
  * @return
  * 0 if successful, -1 if failed (wrong parameters)
  */
-int8_t dof6_accel_configure(odr_t odr, bool accel_x,bool accel_y, bool accel_z, acl_range_t range);
+int8_t dof6_accel_configure(odr_t odr, bool accel_x, bool accel_y, bool accel_z, acl_range_t range);
 /**
  * @brief dof6_gyro_configure
  * - Starts up and fully configures the gyroscope based on the provided parameters
@@ -53,7 +53,7 @@ int8_t dof6_accel_configure(odr_t odr, bool accel_x,bool accel_y, bool accel_z, 
  * @return
  * 0 if successful, -1 if failed (wrong parameters)
  */
-int8_t dof6_gyro_configure(odr_t odr, bool gyro_x,bool gyro_y, bool gyro_z, gyro_range_t range);
+int8_t dof6_gyro_configure(odr_t odr, bool gyro_x, bool gyro_y, bool gyro_z, gyro_range_t range);
 /**
  * @brief dof6_accel_read_x
  * - Returns the value of the accelerometer X axis. This function currently just returns
@@ -128,7 +128,7 @@ int16_t dof6_gyro_read_z();
  * @return
  * 0 if successful, -1 if failed
  */
-int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold,uint8_t quiet_time, uint8_t shock_time, uint8_t pin );
+int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold, uint8_t quiet_time, uint8_t shock_time, uint8_t pin );
 /**
  * @brief dof6_configure_double_tap_interrupt
  * - Fully configures the single tap interrupt with the given parameters
@@ -149,7 +149,7 @@ int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold,
  * @return
  * 0 if successful, -1 if failed
  */
-int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t threshold,uint8_t quiet_time, uint8_t shock_time, uint8_t time_gap );
+int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t threshold, uint8_t quiet_time, uint8_t shock_time, uint8_t time_gap );
 /**
  * @brief dof6_configure_free_fall_interrupt
  * - Fully configures the free fall interrupt with the given parameters

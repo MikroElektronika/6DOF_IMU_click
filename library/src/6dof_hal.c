@@ -13,7 +13,7 @@
 *******************************************************************************/
 /**
  * @file CLICKNAME_hal.c
- * @brief This module contains the 
+ * @brief This module contains the
  */
 /******************************************************************************
 * Includes
@@ -53,7 +53,7 @@ static void( *read_i2c_p )( unsigned char slave_address,
 static void( *enable_i2c_p )( void );
 static void( *disable_i2c_p )( void );
 static void( *set_slave_address_i2c_p )( unsigned char slave_address,
-                                         unsigned char dir );
+        unsigned char dir );
 static void( *write_i2c_p )( unsigned char data_out,
                              unsigned char mode );
 static void( *read_i2c_p )( unsigned char *data,
@@ -107,13 +107,13 @@ static void( *set_slave_address_i2c_p )( unsigned char slave_address );
 static unsigned char( *write_i2c_p )( unsigned char data_out );
 static unsigned char( *read_i2c_p )( unsigned char *data_in );
 static unsigned char( *write_bytes_i2c_p )( unsigned char *buffer,
-                                            unsigned int count );
+        unsigned int count );
 static unsigned char( *read_bytes_i2c_p )( unsigned char *buffer,
-                                           unsigned int count );
+        unsigned int count );
 static unsigned char( *write_10bit_i2c_p )( unsigned char data_out,
-                                            unsigned int address_10bit );
+        unsigned int address_10bit );
 static unsigned char( *read_10bit_i2c_p )( unsigned char *data_in,
-                                           unsigned int address_10bit );
+        unsigned int address_10bit );
 #endif
 /******************************************************************************
 * Function Prototypes
@@ -125,18 +125,18 @@ static unsigned char( *read_10bit_i2c_p )( unsigned char *data_in,
 void dof6_hal_init ( uint8_t address_id )
 {
 #if defined( __MIKROC_PRO_FOR_ARM__ )
-    #if defined( STM32F030C6 ) || defined( STM32F107VC ) || defined( STM32F407VG )
+#if defined( STM32F030C6 ) || defined( STM32F107VC ) || defined( STM32F407VG )
     start_i2c_p = I2C_Start_Ptr;
     write_i2c_p = I2C_Write_Ptr;
     read_i2c_p = I2C_Read_Ptr;
 
-    #elif defined( LM3S1165 ) || defined( TM4C129ENCZAD )
+#elif defined( LM3S1165 ) || defined( TM4C129ENCZAD )
     enable_i2c_p = I2C_Enable_Ptr;
     disable_i2c_p = I2C_Disable_Ptr;
     set_slave_address_i2c_p = I2C_Master_Slave_Addr_Set_Ptr;
     write_i2c_p = I2C_Write_Ptr;
     read_i2c_p = I2C_Read_Ptr;
-    #endif
+#endif
 
 #elif defined( __MIKROC_PRO_FOR_AVR__ )
 #if defined( ATMEGA32 )
@@ -217,21 +217,21 @@ void dof6_hal_write( uint8_t *command,
     uint8_t cmd_size = COMMAND_SIZE;
     uint16_t i = 0;
 
-    while( cmd_size-- )
+    while ( cmd_size-- )
         temp[ i++ ] = *( command++ );
 
     while ( count-- )
         temp[ i++ ] = *( buffer++ );
 
 #if defined(__MIKROC_PRO_FOR_ARM__)
-    #if defined( STM32F030C6 ) || defined( STM32F107VC ) || defined( STM32F407VG )
+#if defined( STM32F030C6 ) || defined( STM32F107VC ) || defined( STM32F407VG )
     start_i2c_p();
     write_i2c_p( _i2c_hw_address, temp, i, END_MODE_STOP );
 
-    #elif defined( LM3S1165 ) || defined( TM4C129ENCZAD )
+#elif defined( LM3S1165 ) || defined( TM4C129ENCZAD )
     set_slave_address_i2c_p( _i2c_hw_address, _I2C_DIR_MASTER_TRANSMIT );
 
-    if( i == 2 )
+    if ( i == 2 )
     {
         write_i2c_p( *( buffer++ ), _I2C_MASTER_MODE_BURST_SEND_START );
         write_i2c_p( *buffer, _I2C_MASTER_MODE_BURST_SEND_STOP );
@@ -240,12 +240,12 @@ void dof6_hal_write( uint8_t *command,
 
         write_i2c_p( *( buffer++ ), _I2C_MASTER_MODE_BURST_SEND_START );
 
-        while( i-- > 1 )
+        while ( i-- > 1 )
             write_i2c_p( *( buffer++ ), _I2C_MASTER_MODE_BURST_SEND_CONT );
 
         write_i2c_p( *buffer, _I2C_MASTER_MODE_BURST_SEND_FINISH );
     }
-    #endif
+#endif
 
 #elif defined(__MIKROC_PRO_FOR_FT90x__)
     set_slave_address_i2c_p( _i2c_hw_address );
@@ -259,7 +259,7 @@ void dof6_hal_write( uint8_t *command,
     start_i2c_p();
     write_i2c_p( _i2c_hw_address | WRITE );
 
-    while( i-- )
+    while ( i-- )
         write_i2c_p( *( temp++ ) );
 
     stop_i2c_p();
@@ -267,18 +267,18 @@ void dof6_hal_write( uint8_t *command,
 }
 
 void dof6_hal_read( uint8_t *command,
-                         uint8_t *buffer,
-                         uint8_t count )
+                    uint8_t *buffer,
+                    uint8_t count )
 {
     uint8_t cmd_size = COMMAND_SIZE;
 
 #if defined(__MIKROC_PRO_FOR_ARM__)
-    #if defined( STM32F030C6 ) || defined( STM32F107VC ) || defined( STM32F407VG )
+#if defined( STM32F030C6 ) || defined( STM32F107VC ) || defined( STM32F407VG )
     start_i2c_p();
     write_i2c_p( _i2c_hw_address, command, cmd_size, END_MODE_RESTART );
     read_i2c_p( _i2c_hw_address, buffer, count, END_MODE_STOP );
 
-    #elif defined( LM3S1165 ) || defined( TM4C129ENCZAD )
+#elif defined( LM3S1165 ) || defined( TM4C129ENCZAD )
     set_slave_address_i2c_p( _i2c_hw_address, _I2C_DIR_MASTER_TRANSMIT );
     if ( cmd_size == 1 )
     {
@@ -301,7 +301,7 @@ void dof6_hal_read( uint8_t *command,
     }
 
     set_slave_address_i2c_p( _i2c_hw_address, _I2C_DIR_MASTER_RECEIVE );
-    if( count == 1 )
+    if ( count == 1 )
     {
         read_i2c_p( buffer, _I2C_MASTER_MODE_BURST_SINGLE_RECEIVE );
 
@@ -310,12 +310,12 @@ void dof6_hal_read( uint8_t *command,
         read_i2c_p( buffer++ , _I2C_MASTER_MODE_BURST_RECEIVE_START ) )
         count--;
 
-        while( count-- > 1 )
-            read_i2c_p( buffer++ , _I2C_MASTER_MODE_BURST_SEND_CONT );
+        while ( count-- > 1 )
+        read_i2c_p( buffer++ , _I2C_MASTER_MODE_BURST_SEND_CONT );
 
         read_i2c_p( buffer, _I2C_MASTER_MODE_BURST_SEND_FINISH );
     }
-    #endif
+#endif
 
 #elif defined(__MIKROC_PRO_FOR_FT90x__)
     set_slave_address_i2c_p( _i2c_hw_address );
@@ -340,13 +340,13 @@ void dof6_hal_read( uint8_t *command,
     start_i2c_p();
     write_i2c_p( _i2c_hw_address | READ );
 
-    if( count == 1 )
+    if ( count == 1 )
     {
         *buffer = read_i2c_p( 0 );
 
     } else {
 
-        while( count-- > 1 )
+        while ( count-- > 1 )
             *( buffer++ ) = read_i2c_p( 1 );
 
         *buffer = read_i2c_p( 0 );
@@ -365,13 +365,13 @@ void dof6_hal_read( uint8_t *command,
     restart_i2c_p();
     write_i2c_p( _i2c_hw_address | READ );
 
-    if( count == 1 )
+    if ( count == 1 )
     {
         *buffer = read_i2c_p( 0 );
 
     } else {
 
-        while( count > 1 )
+        while ( count > 1 )
         {
             *( buffer++ ) = read_i2c_p( 1 );
             count--;

@@ -85,7 +85,7 @@ int8_t dof6_gyro_configure(odr_t odr, bool gyro_x, bool gyro_y, bool gyro_z, gyr
 
 int16_t dof6_accel_read_x()
 {
-  return dof6_get_accel_x();
+    return dof6_get_accel_x();
 }
 
 int16_t dof6_accel_read_y()
@@ -113,7 +113,7 @@ int16_t dof6_gyro_read_z()
     return dof6_get_gyro_z();
 }
 
-int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold,uint8_t quiet_time, uint8_t shock_time, uint8_t pin )
+int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold, uint8_t quiet_time, uint8_t shock_time, uint8_t pin )
 {
     uint8_t temp;
     int8_t temp_check;
@@ -132,14 +132,14 @@ int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold,
         if (pin ==  1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<6);
+            temp |= (1 << 6);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return true;
         }
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp |= (1<<6);
+            temp |= (1 << 6);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return true;
         }
@@ -150,17 +150,17 @@ int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold,
         dof6_tap_x_enable(false);
         dof6_tap_y_enable(false);
         dof6_tap_z_enable(false);
-        if(pin == 1)
+        if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<6);
+            temp &= ~(1 << 6);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp &= ~(1<<6);
+            temp &= ~(1 << 6);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -168,7 +168,7 @@ int8_t dof6_configure_single_tap_interrupt ( bool int_enable, uint8_t threshold,
     }
 }
 
-int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t threshold,uint8_t quiet_time, uint8_t shock_time, uint8_t time_gap )
+int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t threshold, uint8_t quiet_time, uint8_t shock_time, uint8_t time_gap )
 {
     uint8_t temp;
     int8_t temp_check;
@@ -189,7 +189,7 @@ int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<3);
+            temp |= (1 << 3);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -197,7 +197,7 @@ int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t
         else if (pin == 2)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<3);
+            temp |= (1 << 3);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -211,14 +211,14 @@ int8_t dof6_configure_double_tap_interrupt(uint8_t pin, bool int_enable, uint8_t
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<3);
+            temp &= ~(1 << 3);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp &= ~(1<<3);
+            temp &= ~(1 << 3);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -240,7 +240,7 @@ int8_t dof6_configure_free_fall_interrupt(uint8_t pin, bool int_enable, uint8_t 
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<4);
+            temp |= (1 << 4);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -248,7 +248,7 @@ int8_t dof6_configure_free_fall_interrupt(uint8_t pin, bool int_enable, uint8_t 
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp |= (1<<4);
+            temp |= (1 << 4);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -261,14 +261,14 @@ int8_t dof6_configure_free_fall_interrupt(uint8_t pin, bool int_enable, uint8_t 
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<4);
+            temp &= ~(1 << 4);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp &= ~(1<<4);
+            temp &= ~(1 << 4);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -299,7 +299,7 @@ int8_t dof6_configure_inactive_interrupt(bool int_enable, uint8_t pin, uint8_t i
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<7);
+            temp |= (1 << 7);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -307,7 +307,7 @@ int8_t dof6_configure_inactive_interrupt(bool int_enable, uint8_t pin, uint8_t i
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp |= (1<<7);
+            temp |= (1 << 7);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -320,7 +320,7 @@ int8_t dof6_configure_inactive_interrupt(bool int_enable, uint8_t pin, uint8_t i
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<7);
+            temp &= ~(1 << 7);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -328,7 +328,7 @@ int8_t dof6_configure_inactive_interrupt(bool int_enable, uint8_t pin, uint8_t i
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp &= ~(1<<7);
+            temp &= ~(1 << 7);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -368,7 +368,7 @@ int8_t dof6_configure_wakeup_interrupt(bool int_enable, uint8_t pin, bool high_p
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<5);
+            temp |= (1 << 5);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -376,7 +376,7 @@ int8_t dof6_configure_wakeup_interrupt(bool int_enable, uint8_t pin, bool high_p
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp |= (1<<5);
+            temp |= (1 << 5);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -389,7 +389,7 @@ int8_t dof6_configure_wakeup_interrupt(bool int_enable, uint8_t pin, bool high_p
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<5);
+            temp &= ~(1 << 5);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
@@ -397,7 +397,7 @@ int8_t dof6_configure_wakeup_interrupt(bool int_enable, uint8_t pin, bool high_p
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp &= (1<<5);
+            temp &= (1 << 5);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -412,7 +412,7 @@ int8_t dof6_configure_d6_interrupt(bool int_enable, d6d_threshold_t threshold, u
     uint8_t temp;
     int8_t temp_check;
 
-    if( int_enable == true)
+    if ( int_enable == true)
     {
         temp_check = dof6_6d_set_threshold(threshold);
         if (temp_check == -1) return -1;
@@ -421,14 +421,14 @@ int8_t dof6_configure_d6_interrupt(bool int_enable, d6d_threshold_t threshold, u
         if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<2);
+            temp |= (1 << 2);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
         else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp |= (1<<2);
+            temp |= (1 << 2);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -437,22 +437,22 @@ int8_t dof6_configure_d6_interrupt(bool int_enable, d6d_threshold_t threshold, u
 
     else if (int_enable == false)
     {
-       dof6_6d_low_pass_enable(false);
-       if (pin == 1)
-       {
+        dof6_6d_low_pass_enable(false);
+        if (pin == 1)
+        {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<2);
+            temp &= ~(1 << 2);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return true;
-       }
-       else if (pin == 2)
-       {
-           dof6_hal_read(MD2_CFG, &temp, 1);
-           temp &= ~(1<<2);
-           dof6_hal_write(MD2_CFG, &temp, 1);
-           return 0;
-       }
-       else return -1;
+        }
+        else if (pin == 2)
+        {
+            dof6_hal_read(MD2_CFG, &temp, 1);
+            temp &= ~(1 << 2);
+            dof6_hal_write(MD2_CFG, &temp, 1);
+            return 0;
+        }
+        else return -1;
     }
 
     else return -1;
@@ -461,23 +461,23 @@ int8_t dof6_configure_d6_interrupt(bool int_enable, d6d_threshold_t threshold, u
 int8_t dof6_configure_tilt_interrupt(bool int_enable, uint8_t pin )
 {
 
-     uint8_t temp;
+    uint8_t temp;
     if (int_enable == ENABLE)
     {
         dof6_embedded_functions_enable(true);
         dof6_tilt_enable(true);
-        if(pin == 1)
+        if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp |= (1<<1);
+            temp |= (1 << 1);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
 
-        else if(pin == 2)
+        else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp |= (1<<1);
+            temp |= (1 << 1);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -488,18 +488,18 @@ int8_t dof6_configure_tilt_interrupt(bool int_enable, uint8_t pin )
     else if (int_enable == false)
     {
         dof6_tilt_enable(false);
-        if(pin == 1)
+        if (pin == 1)
         {
             dof6_hal_read(MD1_CFG, &temp, 1);
-            temp &= ~(1<<1);
+            temp &= ~(1 << 1);
             dof6_hal_write(MD1_CFG, &temp, 1);
             return 0;
         }
 
-        else if(pin == 2)
+        else if (pin == 2)
         {
             dof6_hal_read(MD2_CFG, &temp, 1);
-            temp &= ~(1<<1);
+            temp &= ~(1 << 1);
             dof6_hal_write(MD2_CFG, &temp, 1);
             return 0;
         }
@@ -738,17 +738,17 @@ int8_t dof6_configure_fifo_full_interrupt(bool int_enable, uint8_t pin)
     {
         if (pin == 1)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp |= (1<<5);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 5);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
 
         else if (pin == 2)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp |= (1<<5);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 5);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
         else return -1;
@@ -758,17 +758,17 @@ int8_t dof6_configure_fifo_full_interrupt(bool int_enable, uint8_t pin)
     {
         if (pin == 1)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp &= ~(1<<5);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp &= ~(1 << 5);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
 
         else if (pin == 2)
         {
-            dof6_hal_read(INT2_CTRL, &temp,1);
-            temp &= ~(1<<5);
-            dof6_hal_read(INT2_CTRL, &temp,1);
+            dof6_hal_read(INT2_CTRL, &temp, 1);
+            temp &= ~(1 << 5);
+            dof6_hal_read(INT2_CTRL, &temp, 1);
             return 0;
         }
 
@@ -786,17 +786,17 @@ int8_t dof6_configure_fifo_ovr_interrupt(bool int_enable, uint8_t pin)
     {
         if (pin == 1)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp |= (1<<4);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 4);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
 
         else if (pin == 2)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp |= (1<<4);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 4);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
         else return -1;
@@ -806,17 +806,17 @@ int8_t dof6_configure_fifo_ovr_interrupt(bool int_enable, uint8_t pin)
     {
         if (pin == 1)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp &= ~(1<<4);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp &= ~(1 << 4);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
 
         else if (pin == 2)
         {
-            dof6_hal_read(INT2_CTRL, &temp,1);
-            temp &= ~(1<<4);
-            dof6_hal_read(INT2_CTRL, &temp,1);
+            dof6_hal_read(INT2_CTRL, &temp, 1);
+            temp &= ~(1 << 4);
+            dof6_hal_read(INT2_CTRL, &temp, 1);
             return 0;
         }
 
@@ -836,17 +836,17 @@ int8_t dof6_configure_fifo_thrs_interrupt(bool int_enable, uint8_t pin, uint16_t
         dof6_fifo_set_threshold_level(threshold);
         if (pin == 1)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp |= (1<<3);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 3);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
 
         else if (pin == 2)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp |= (1<<3);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 3);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
         else return -1;
@@ -856,17 +856,17 @@ int8_t dof6_configure_fifo_thrs_interrupt(bool int_enable, uint8_t pin, uint16_t
     {
         if (pin == 1)
         {
-            dof6_hal_read(INT1_CTRL, &temp,1);
-            temp &= ~(1<<3);
-            dof6_hal_read(INT1_CTRL, &temp,1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp &= ~(1 << 3);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
             return 0;
         }
 
         else if (pin == 2)
         {
-            dof6_hal_read(INT2_CTRL, &temp,1);
-            temp &= ~(1<<3);
-            dof6_hal_read(INT2_CTRL, &temp,1);
+            dof6_hal_read(INT2_CTRL, &temp, 1);
+            temp &= ~(1 << 3);
+            dof6_hal_read(INT2_CTRL, &temp, 1);
             return 0;
         }
 
@@ -883,7 +883,7 @@ int8_t dof6_configure_boot_interrupt(bool int_enable)
     if (int_enable == true)
     {
         dof6_hal_read(INT1_CTRL, &temp, 1);
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(INT1_CTRL, &temp, 1);
         return 0;
     }
@@ -891,7 +891,7 @@ int8_t dof6_configure_boot_interrupt(bool int_enable)
     else if (int_enable == false)
     {
         dof6_hal_read(INT1_CTRL, &temp, 1);
-        temp &= ~(1<<2);
+        temp &= ~(1 << 2);
         dof6_hal_write(INT1_CTRL, &temp, 1);
         return 0;
     }
@@ -944,8 +944,8 @@ int8_t dof6_configure_gyro_data_ready_interrupt(bool int_enable, uint8_t pin)
     {
         if (pin == 1)
         {
-           dof6_hal_read(INT1_CTRL, &temp, 1);
-            temp |= (1<<1);
+            dof6_hal_read(INT1_CTRL, &temp, 1);
+            temp |= (1 << 1);
             dof6_hal_write(INT1_CTRL, &temp, 1);
             return 0;
         }
@@ -953,7 +953,7 @@ int8_t dof6_configure_gyro_data_ready_interrupt(bool int_enable, uint8_t pin)
         if (pin == 2)
         {
             dof6_hal_read(INT2_CTRL, &temp, 1);
-            temp |= (1<<1);
+            temp |= (1 << 1);
             dof6_hal_write(INT2_CTRL, &temp, 1);
             return 0;
         }
@@ -966,7 +966,7 @@ int8_t dof6_configure_gyro_data_ready_interrupt(bool int_enable, uint8_t pin)
         if (pin == 1)
         {
             dof6_hal_read(INT1_CTRL, &temp, 1);
-            temp &= ~(1<<1);
+            temp &= ~(1 << 1);
             dof6_hal_write(INT1_CTRL, &temp, 1);
             return 0;
         }
@@ -974,7 +974,7 @@ int8_t dof6_configure_gyro_data_ready_interrupt(bool int_enable, uint8_t pin)
         else if (pin == 2)
         {
             dof6_hal_read(INT2_CTRL, &temp, 1);
-            temp &= ~(1<<1);
+            temp &= ~(1 << 1);
             dof6_hal_write(INT2_CTRL, &temp, 1);
             return 0;
         }
@@ -991,7 +991,7 @@ int8_t dof6_configure_temp_data_ready_interrupt(bool int_enable)
     if (int_enable == true)
     {
         dof6_hal_read(INT2_CTRL, &temp, 1);
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(INT2_CTRL, &temp, 1);
         return 0;
     }
@@ -999,7 +999,7 @@ int8_t dof6_configure_temp_data_ready_interrupt(bool int_enable)
     else if (int_enable == false)
     {
         dof6_hal_read(INT2_CTRL, &temp, 1);
-        temp &= ~(1<<2);
+        temp &= ~(1 << 2);
         dof6_hal_write(INT2_CTRL, &temp, 1);
         return 0;
     }

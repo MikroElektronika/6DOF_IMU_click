@@ -7,7 +7,7 @@
 *****************************************************************************/
 /**************************CHANGE LIST **************************************
 *
-*    Date    Software Version    Initials   Description 
+*    Date    Software Version    Initials   Description
 *  10/07/16    1.0.0               VM      Interface Created.
 *
 *****************************************************************************/
@@ -148,7 +148,7 @@ typedef struct
     bool d6;
     bool tilt;
     bool timer;
-}int1_routing_t;
+} int1_routing_t;
 
 /**
   * @struct
@@ -163,7 +163,7 @@ typedef struct
     bool double_tap2;
     bool d62;
     bool tilt2;
-}int2_routing_t;
+} int2_routing_t;
 
 /**
  * @enum
@@ -182,7 +182,7 @@ typedef enum
     KHZ_1_6,            /**< 1.66 Hz*/
     KHZ_3_3,            /**< 3.33 Hz*/
     KHZ_6_6             /**< 6.66 Hz*/
-}odr_t;
+} odr_t;
 
 /**
  * @enum
@@ -194,7 +194,7 @@ typedef enum
     ACL_RANGE_16G,          /**< +- 16G */
     ACL_RANGE_4G,           /**< +- 4G */
     ACL_RANGE_8G            /**< +- 8G */
-}acl_range_t;
+} acl_range_t;
 
 /**
  * @enum
@@ -207,7 +207,7 @@ typedef enum
     CONTINOUS_TO_FIFO = 3, /**< Continuous mode until trigger is deasserted, then FIFO mode.*/
     BYPASS_TO_CONTINOUS,    /**< Bypass mode until trigger is deasserted, then Continuous mode.*/
     CONTINOUS = 6,          /**< Continuous mode. If the FIFO is full, the new sample overwrites the older one.*/
-}fifo_mode_t;
+} fifo_mode_t;
 
 /**
  * @enum
@@ -217,7 +217,7 @@ typedef enum
 {
     POSITIVE = 0,  /**< Positive sign*/
     NEGATIVE       /**< Negative sign*/
-}gyro_sign_t;
+} gyro_sign_t;
 
 /**
  * @enum
@@ -231,7 +231,7 @@ typedef enum
     Y_Z_X,
     Z_X_Y,
     Z_Y_X
-}orientation_t;
+} orientation_t;
 
 /**
  * @enum
@@ -256,7 +256,7 @@ typedef enum
     DPS_500,
     DPS_1000,
     DPS_2000
-}gyro_range_t;
+} gyro_range_t;
 
 /**
  * @enum
@@ -266,7 +266,7 @@ typedef enum
 {
     LOW = 0,
     HIGH,
-}level_t;
+} level_t;
 
 /**
  * @enum
@@ -276,7 +276,7 @@ typedef enum
 {
     PUSH_PULL = 0,
     OPEN_DRAIN
-}int_mode_t;
+} int_mode_t;
 
 /**
  * @enum
@@ -288,7 +288,7 @@ typedef enum
     ACC_ONLY,         /**< Accelerometer only rounding*/
     GYRO_ONLY,        /**< Gyroscope only rounding*/
     GYRO_AND_ACC,     /**< Both Gyroscope and Accelerometer rounding*/
-}rounding_t;
+} rounding_t;
 
 /**
  * @enum
@@ -299,7 +299,7 @@ typedef enum
     NORMAL_MODE,
     POS_SIGN,
     NEG_SIGN
-}selftest_t;
+} selftest_t;
 
 /**
  * @enum
@@ -311,7 +311,7 @@ typedef enum
     HZ_0_0324,
     HZ_2_07,
     HZ_16_32
-}hp_cutoff_freq_t;
+} hp_cutoff_freq_t;
 
 /**
  * @enum
@@ -323,7 +323,7 @@ typedef enum
     ODR_XL_100,         /**< ODR_XL/100*/
     ODR_XL_9,           /**< ODR_XL/9*/
     ODR_XL_400          /**< ODR_XL/400*/
-}slope_hp_config_t;
+} slope_hp_config_t;
 
 /**
  * @enum
@@ -335,7 +335,7 @@ typedef enum
     DEGREES_70,
     DEGREES_60,
     DEGREES_50
-}d6d_threshold_t;
+} d6d_threshold_t;
 
 /**
  * @enum
@@ -345,7 +345,7 @@ typedef enum
 {
     SINGLE_ONLY = 0,
     SINGLE_AND_DOUBLE
-}tap_wakeup_t;
+} tap_wakeup_t;
 
 /**
  * @enum
@@ -356,7 +356,7 @@ typedef enum
     MS_6_4 = 0,
     MS_25
 
-}timer_resolution_t;
+} timer_resolution_t;
 
 /**
  * @enum
@@ -372,7 +372,7 @@ typedef enum
     MG_406,
     MG_469,
     MG_500
-}free_fall_threshold_t;
+} free_fall_threshold_t;
 
 /**
   * @struct
@@ -388,7 +388,7 @@ typedef struct
     bool boot;
     bool gyro_drdy;
     bool accel_drdy;
-}interrupt1_config_t;
+} interrupt1_config_t;
 
 /**
   * @struct
@@ -404,7 +404,7 @@ typedef struct
     bool temp_drdy;
     bool gyro_drdy2;
     bool accel_drdy2;
-}interrupt2_config_t;
+} interrupt2_config_t;
 
 
 
@@ -417,7 +417,7 @@ typedef struct
 * Function Prototypes
 *******************************************************************************/
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif
 
 /**

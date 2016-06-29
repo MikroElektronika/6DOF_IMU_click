@@ -49,7 +49,7 @@
 /******************************************************************************
 * Macros
 *******************************************************************************/
-	
+
 /******************************************************************************
 * Typedefs
 *******************************************************************************/
@@ -62,7 +62,7 @@
 * Function Prototypes
 *******************************************************************************/
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif
 /**
  * @brief dof6_hal_init
@@ -83,8 +83,8 @@ void dof6_hal_init( uint8_t address_id );
  * Number of bytes to be written
  */
 void dof6_hal_write( uint8_t *command,
-                    	  uint8_t *buffer,
-                    	  uint16_t count );
+                     uint8_t *buffer,
+                     uint16_t count );
 /**
  * @brief dof6_hal_read
  * Reads specified number of bytes from the device
@@ -96,8 +96,8 @@ void dof6_hal_write( uint8_t *command,
  * Number of bytes to be read
  */
 void dof6_hal_read( uint8_t *command,
-                   		 uint8_t *buffer,
-                   		 uint16_t count );
+                    uint8_t *buffer,
+                    uint16_t count );
 
 #ifdef __cplusplus
 } // extern "C"

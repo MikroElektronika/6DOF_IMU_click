@@ -46,33 +46,33 @@
 
 int8_t dof6_init ( uint8_t address )
 {
-   uint8_t temp;
-   dof6_hal_init ( address );
-   dof6_hal_read ( 0x12,&temp, 1 );
-   if ( (temp & (1<<2)) == 0 )
-   {
-       temp |= (1<<2);
-       dof6_hal_write(0x12, &temp, 1);
-   }
-   dof6_hal_read(0x0F, &temp, 1);
-   if (temp != 0x69) return -1;
+    uint8_t temp;
+    dof6_hal_init ( address );
+    dof6_hal_read ( 0x12, &temp, 1 );
+    if ( (temp & (1 << 2)) == 0 )
+    {
+        temp |= (1 << 2);
+        dof6_hal_write(0x12, &temp, 1);
+    }
+    dof6_hal_read(0x0F, &temp, 1);
+    if (temp != 0x69) return -1;
 
-   return 0;
+    return 0;
 }
 
 void dof6_embedded_functions_access_enable(bool set)
 {
     uint8_t temp;
-    dof6_hal_read(FUNC_CFG_ACCESS,&temp, 1);
-    switch(set)
+    dof6_hal_read(FUNC_CFG_ACCESS, &temp, 1);
+    switch (set)
     {
     case true:
-        temp |= (1<<7);
-        dof6_hal_write(FUNC_CFG_ACCESS,&temp, 1);
+        temp |= (1 << 7);
+        dof6_hal_write(FUNC_CFG_ACCESS, &temp, 1);
         break;
     case false:
-        temp &= (1<<7);
-        dof6_hal_write(FUNC_CFG_ACCESS,&temp, 1);
+        temp &= (1 << 7);
+        dof6_hal_write(FUNC_CFG_ACCESS, &temp, 1);
         break;
     }
 }
@@ -80,16 +80,16 @@ void dof6_embedded_functions_access_enable(bool set)
 void dof6_embedded_functions_enable(bool set)
 {
     uint8_t temp;
-    dof6_hal_read(CTRL10_C,&temp, 1);
-    switch(set)
+    dof6_hal_read(CTRL10_C, &temp, 1);
+    switch (set)
     {
     case true:
-        temp |= (1<<2);
-        dof6_hal_write(CTRL10_C,&temp, 1);
+        temp |= (1 << 2);
+        dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     case false:
-        temp &= (1<<2);
-        dof6_hal_write(CTRL10_C,&temp, 1);
+        temp &= (1 << 2);
+        dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     }
 }
@@ -97,12 +97,12 @@ void dof6_embedded_functions_enable(bool set)
 
 int8_t dof6_fifo_set_threshold_level(uint16_t threshold_level)
 {
-    uint8_t temp,temp1;
+    uint8_t temp, temp1;
     if (threshold_level > 0x0FFFF) return -1;
     temp1 = threshold_level & 0x0F00;
     temp = (threshold_level & 0x0F00) >> 8;
-    dof6_hal_write(FIFO_CTRL1,&temp1,1);
-    dof6_hal_write(FIFO_CTRL2,&temp,1);
+    dof6_hal_write(FIFO_CTRL1, &temp1, 1);
+    dof6_hal_write(FIFO_CTRL2, &temp, 1);
     return 0;
 }
 
@@ -112,12 +112,12 @@ void dof6_fifo_pedometer_timestamp_enable(bool set)
     dof6_hal_read(FIFO_CTRL2, &temp, 1);
     if (set == true)
     {
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write (FIFO_CTRL2, &temp, 1);
     }
     else if (set == false)
     {
-        temp&=(1<<7);
+        temp &= (1 << 7);
         dof6_hal_write (FIFO_CTRL2, &temp, 1);
     }
 }
@@ -128,12 +128,12 @@ void dof6_fifo_set_write_enable(bool set)
     dof6_hal_read(FIFO_CTRL2, &temp, 1);
     if (set == true)
     {
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write (FIFO_CTRL2, &temp, 1);
     }
     else if (set == false)
     {
-        temp&=(1<<6);
+        temp &= (1 << 6);
         dof6_hal_write (FIFO_CTRL2, &temp, 1);
     }
 }
@@ -145,47 +145,47 @@ int8_t dof6_fifo_set_gyro_decimation(uint8_t set)
     dof6_hal_read (FIFO_CTRL3, &temp, 1);
     switch (set)
     {
-      case 0:
-        temp &= ~(7<<3);
+    case 0:
+        temp &= ~(7 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 1:
-        temp &= ~(7<<3);
-        temp |= (1<<3);
+        break;
+    case 1:
+        temp &= ~(7 << 3);
+        temp |= (1 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 2:
-        temp &= ~(7<<3);
-        temp |= (2<<3);
+        break;
+    case 2:
+        temp &= ~(7 << 3);
+        temp |= (2 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 3:
-        temp &= ~(7<<3);
-        temp |= (3<<3);
+        break;
+    case 3:
+        temp &= ~(7 << 3);
+        temp |= (3 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 4:
-        temp &= ~(7<<3);
-        temp |= (4<<3);
+        break;
+    case 4:
+        temp &= ~(7 << 3);
+        temp |= (4 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 8:
-        temp &= ~(7<<3);
-        temp |= (5<<3);
+        break;
+    case 8:
+        temp &= ~(7 << 3);
+        temp |= (5 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 16:
-        temp &= ~(7<<3);
-        temp |= (6<<3);
+        break;
+    case 16:
+        temp &= ~(7 << 3);
+        temp |= (6 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 32:
-        temp |= (7<<3);
+        break;
+    case 32:
+        temp |= (7 << 3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      default:
+        break;
+    default:
         status = -1;
-      break;
+        break;
     }
     return status;
 }
@@ -197,48 +197,48 @@ int8_t dof6_fifo_set_accel_dcimation (uint8_t set)
     dof6_hal_read (FIFO_CTRL3, &temp, 1);
     switch (set)
     {
-      case 0:
+    case 0:
         temp &= ~(7);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 1:
+        break;
+    case 1:
         temp &= ~(7);
         temp |= (1);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 2:
+        break;
+    case 2:
         temp &= ~(7);
         temp |= (2);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 3:
+        break;
+    case 3:
         temp &= ~(7);
         temp |= (3);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 4:
+        break;
+    case 4:
         temp &= ~(7);
         temp |= (4);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
         return 0;
-      break;
-      case 8:
+        break;
+    case 8:
         temp &= ~(7);
         temp |= (5);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 16:
+        break;
+    case 16:
         temp &= ~(7);
         temp |= (6);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      case 32:
+        break;
+    case 32:
         temp |= (7);
         dof6_hal_write (FIFO_CTRL3, &temp, 1);
-      break;
-      default:
+        break;
+    default:
         status = -1;
-      break;
+        break;
     }
     return status;
 }
@@ -249,12 +249,12 @@ void dof6_fifo_8bit_enable(bool set)
     dof6_hal_read (FIFO_CTRL4, &temp, 1);
     if (set == true)
     {
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
     }
     else if (set == false)
     {
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
     }
 }
@@ -266,45 +266,45 @@ int8_t dof6_fifo_set_third_data_decimation(uint8_t set)
     dof6_hal_read (FIFO_CTRL4, &temp, 1);
     switch (set)
     {
-      case 0:
-        temp &= ~(7<<3);
+    case 0:
+        temp &= ~(7 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 1:
-        temp &= ~(7<<3);
-        temp |= (1<<3);
+    case 1:
+        temp &= ~(7 << 3);
+        temp |= (1 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 2:
-        temp &= ~(7<<3);
-        temp |= (2<<3);
+    case 2:
+        temp &= ~(7 << 3);
+        temp |= (2 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 3:
-        temp &= ~(7<<3);
-        temp |= (3<<3);
+    case 3:
+        temp &= ~(7 << 3);
+        temp |= (3 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 4:
-        temp &= ~(7<<3);
-        temp |= (4<<3);
+    case 4:
+        temp &= ~(7 << 3);
+        temp |= (4 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 8:
-        temp &= ~(7<<3);
-        temp |= (5<<3);
+    case 8:
+        temp &= ~(7 << 3);
+        temp |= (5 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 16:
-        temp &= ~(7<<3);
-        temp |= (6<<3);
+    case 16:
+        temp &= ~(7 << 3);
+        temp |= (6 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      case 32:
-        temp |= (7<<3);
+    case 32:
+        temp |= (7 << 3);
         dof6_hal_write (FIFO_CTRL4, &temp, 1);
         break;
-      default:
+    default:
         status = -1;
         break;
     }
@@ -316,60 +316,60 @@ int8_t dof6_fifo_set_output_data_rate(odr_t odr)
     uint8_t temp;
     int8_t status = 0;
     dof6_hal_read (FIFO_CTRL5, &temp, 1);
-    switch(odr)
+    switch (odr)
     {
     case POWER_DOWN:
-        temp &= ~(15<<3);
+        temp &= ~(15 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_13:
-        temp &= ~(15<<3);
-        temp |= (1<<3);
+        temp &= ~(15 << 3);
+        temp |= (1 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_26:
-        temp &= ~(15<<3);
-        temp |= (2<<3);
+        temp &= ~(15 << 3);
+        temp |= (2 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_52:
-        temp &= ~(15<<3);
-        temp |= (3<<3);
+        temp &= ~(15 << 3);
+        temp |= (3 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_104:
-        temp &= ~(15<<3);
-        temp |= (4<<3);
+        temp &= ~(15 << 3);
+        temp |= (4 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_208:
-        temp &= ~(15<<3);
-        temp |= (5<<3);
+        temp &= ~(15 << 3);
+        temp |= (5 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_416:
-        temp &= ~(15<<3);
-        temp |= (6<<3);
+        temp &= ~(15 << 3);
+        temp |= (6 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case HZ_833:
-        temp &= ~(15<<3);
-        temp |= (7<<3);
+        temp &= ~(15 << 3);
+        temp |= (7 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case KHZ_1_6:
-        temp &= ~(15<<3);
-        temp |= (8<<3);
+        temp &= ~(15 << 3);
+        temp |= (8 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case KHZ_3_3:
-        temp &= ~(15<<3);
-        temp |= (9<<3);
+        temp &= ~(15 << 3);
+        temp |= (9 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     case KHZ_6_6:
-        temp &= ~(15<<3);
-        temp |= (10<<3);
+        temp &= ~(15 << 3);
+        temp |= (10 << 3);
         dof6_hal_write (FIFO_CTRL5, &temp, 1);
         break;
     default:
@@ -386,7 +386,7 @@ int8_t dof6_fifo_set_mode(fifo_mode_t mode)
     uint8_t temp;
     int8_t status = 0;
     dof6_hal_read (FIFO_CTRL5, &temp, 1);
-    switch(mode)
+    switch (mode)
     {
     case FIFO_BYPASS_MODE:
         temp &= ~(7);
@@ -427,11 +427,11 @@ int8_t dof6_gyro_set_sign_x(gyro_sign_t sign)
     switch (sign)
     {
     case POSITIVE:
-        temp &= ~(1<<5);
+        temp &= ~(1 << 5);
         dof6_hal_write (ORIENT_CFG_G, &temp, 1);
         break;
     case NEGATIVE:
-        temp |= (1<<5);
+        temp |= (1 << 5);
         dof6_hal_write (ORIENT_CFG_G, &temp, 1);
         break;
     default:
@@ -449,11 +449,11 @@ int8_t dof6_gyro_set_sign_y(gyro_sign_t sign)
     switch (sign)
     {
     case POSITIVE:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write (ORIENT_CFG_G, &temp, 1);
         break;
     case NEGATIVE:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write (ORIENT_CFG_G, &temp, 1);
         break;
     default:
@@ -470,11 +470,11 @@ int8_t dof6_gyro_set_sign_z(gyro_sign_t sign)
     dof6_hal_read (ORIENT_CFG_G, &temp, 1);
     switch (sign) {
     case POSITIVE:
-        temp &= ~(1<<3);
+        temp &= ~(1 << 3);
         dof6_hal_write (ORIENT_CFG_G, &temp, 1);
         break;
     case NEGATIVE:
-        temp |= (1<<3);
+        temp |= (1 << 3);
         dof6_hal_write (ORIENT_CFG_G, &temp, 1);
         break;
     default:
@@ -489,7 +489,7 @@ int8_t dof6_gyro_set_directional_oritentation(orientation_t orientation)
     uint8_t temp;
     int8_t status = 0;
     dof6_hal_read (ORIENT_CFG_G, &temp, 1);
-    switch(orientation)
+    switch (orientation)
     {
     case X_Y_Z:
         temp &= ~(7);
@@ -531,13 +531,13 @@ void dof6_int1_configure(interrupt1_config_t interrupt1)
 {
     uint8_t temp = 0;
 
-    if (interrupt1.step_detector == 0) temp |= (1<<7);
-    if (interrupt1.sign_motion == 0) temp |= (1<<6);
-    if (interrupt1.fifo_full == 0) temp |= (1<<5);
-    if (interrupt1.fifo_ovr == 0) temp |= (1<<4);
-    if (interrupt1.fifo_thrs == 0) temp |= (1<<3);
-    if (interrupt1.boot == 0) temp |= (1<<2);
-    if (interrupt1.gyro_drdy == 0) temp |= (1<<1);
+    if (interrupt1.step_detector == 0) temp |= (1 << 7);
+    if (interrupt1.sign_motion == 0) temp |= (1 << 6);
+    if (interrupt1.fifo_full == 0) temp |= (1 << 5);
+    if (interrupt1.fifo_ovr == 0) temp |= (1 << 4);
+    if (interrupt1.fifo_thrs == 0) temp |= (1 << 3);
+    if (interrupt1.boot == 0) temp |= (1 << 2);
+    if (interrupt1.gyro_drdy == 0) temp |= (1 << 1);
     if (interrupt1.accel_drdy == 0) temp |= (1);
     dof6_hal_write (INT1_CTRL, &temp, 1);
 }
@@ -546,13 +546,13 @@ void dof6_int2_configure(interrupt2_config_t interrupt2)
 {
     uint8_t temp;
 
-    if (interrupt2.step_delta == 0) temp |= (1<<7);
-    if (interrupt2.step_count_ovr == 0) temp |= (1<<6);
-    if (interrupt2.fifo_full2 == 0) temp |= (1<<5);
-    if (interrupt2.fifo_ovr2 == 0) temp |= (1<<4);
-    if (interrupt2.fifo_thrs2 == 0) temp |= (1<<3);
-    if (interrupt2.temp_drdy == 0) temp |= (1<<2);
-    if (interrupt2.gyro_drdy2 == 0) temp |= (1<<1);
+    if (interrupt2.step_delta == 0) temp |= (1 << 7);
+    if (interrupt2.step_count_ovr == 0) temp |= (1 << 6);
+    if (interrupt2.fifo_full2 == 0) temp |= (1 << 5);
+    if (interrupt2.fifo_ovr2 == 0) temp |= (1 << 4);
+    if (interrupt2.fifo_thrs2 == 0) temp |= (1 << 3);
+    if (interrupt2.temp_drdy == 0) temp |= (1 << 2);
+    if (interrupt2.gyro_drdy2 == 0) temp |= (1 << 1);
     if (interrupt2.accel_drdy2 == 0) temp |= (1);
     dof6_hal_write (INT2_CTRL, &temp, 1);
 }
@@ -565,58 +565,58 @@ int8_t dof6_accel_set_output_data_rate (odr_t data_rate)
     switch (data_rate)
     {
     case POWER_DOWN:
-    temp &= ~(15<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_13:
-    temp &= ~(15<<4);
-    temp |= (1<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (1 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_26:
-    temp &= ~(15<<4);
-    temp |= (2<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (2 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_52:
-    temp &= ~(15<<4);
-    temp |= (3<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (3 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_104:
-    temp &= ~(15<<4);
-    temp |= (4<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (4 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_208:
-    temp &= ~(15<<4);
-    temp |= (5<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (5 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_416:
-    temp &= ~(15<<4);
-    temp |= (6<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (6 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case HZ_833:
-    temp &= ~(15<<4);
-    temp |= (7<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (7 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case KHZ_1_6:
-    temp &= ~(15<<4);
-    temp |= (8<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (8 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case KHZ_3_3:
-    temp &= ~(15<<4);
-    temp |= (9<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (9 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     case KHZ_6_6:
-    temp &= ~(15<<4);
-    temp |= (10<<4);
-    dof6_hal_write (CTRL1_XL, &temp, 1);
+        temp &= ~(15 << 4);
+        temp |= (10 << 4);
+        dof6_hal_write (CTRL1_XL, &temp, 1);
         break;
     default:
         status = -1;
@@ -642,21 +642,21 @@ int8_t dof6_accel_set_range (acl_range_t range)
     switch (range)
     {
     case ACL_RANGE_2G:
-        temp &= ~(3<<2);
+        temp &= ~(3 << 2);
         dof6_hal_write(CTRL1_XL, &temp, 1);
         break;
     case ACL_RANGE_16G:
-        temp &= ~(3<<2);
+        temp &= ~(3 << 2);
         temp |= 1;
         dof6_hal_write(CTRL1_XL, &temp, 1);
         break;
     case ACL_RANGE_4G:
-        temp &= ~(3<<2);
-        temp |= (1<<1);
+        temp &= ~(3 << 2);
+        temp |= (1 << 1);
         dof6_hal_write(CTRL1_XL, &temp, 1);
         break;
     case ACL_RANGE_8G:
-        temp |= (3<<2);
+        temp |= (3 << 2);
         dof6_hal_write(CTRL1_XL, &temp, 1);
         break;
     default:
@@ -680,7 +680,7 @@ int8_t dof6_accel_set_filter_bandwith (filter_bandwith_t bandwith)
     int8_t status = 0;
     dof6_hal_read(CTRL1_XL, &temp, 1);
 
-    switch(bandwith)
+    switch (bandwith)
     {
     case HZ_400:
         temp &= ~(3);
@@ -721,50 +721,50 @@ int8_t dof6_gyro_set_output_data_rate ( odr_t data_rate )
     int8_t status = 0;
     dof6_hal_read(CTRL2_G, &temp, 1);
 
-    switch(data_rate)
+    switch (data_rate)
     {
     case POWER_DOWN:
-        temp &= ~(15<<4);
+        temp &= ~(15 << 4);
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_13:
-        temp &= ~(15<<4);
-        temp |= 1<<4;
+        temp &= ~(15 << 4);
+        temp |= 1 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_26:
-        temp &= ~(15<<4);
-        temp |= 2<<4;
+        temp &= ~(15 << 4);
+        temp |= 2 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_52:
-        temp &= ~(15<<4);
-        temp |= 3<<4;
+        temp &= ~(15 << 4);
+        temp |= 3 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_104:
-        temp &= ~(15<<4);
-        temp |= 4<<4;
+        temp &= ~(15 << 4);
+        temp |= 4 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_208:
-        temp &= ~(15<<4);
-        temp |= 5<<4;
+        temp &= ~(15 << 4);
+        temp |= 5 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_416:
-        temp &= ~(15<<4);
-        temp |= 6<<4;
+        temp &= ~(15 << 4);
+        temp |= 6 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case HZ_833:
-        temp &= ~(15<<4);
-        temp |= 7<<4;
+        temp &= ~(15 << 4);
+        temp |= 7 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case KHZ_1_6:
-        temp &= ~(15<<4);
-        temp |= 8<<4;
+        temp &= ~(15 << 4);
+        temp |= 8 << 4;
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     default:
@@ -787,29 +787,29 @@ int8_t dof6_gyro_set_range(gyro_range_t range)
     int8_t status = 0;
     dof6_hal_read(CTRL2_G, &temp, 1);
 
-    switch(range)
+    switch (range)
     {
     case DPS_245:
-        temp &= ~(3<<2);
+        temp &= ~(3 << 2);
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case DPS_500:
-        temp &= ~(3<<2);
-        temp |= (1<<2);
+        temp &= ~(3 << 2);
+        temp |= (1 << 2);
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case DPS_1000:
-        temp &= ~(3<<2);
-        temp |= (1<<3);
+        temp &= ~(3 << 2);
+        temp |= (1 << 3);
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case DPS_2000:
-        temp |= (3<<2);
+        temp |= (3 << 2);
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     case DPS_125:
-        temp|= (1<<1);
-        temp &= ~(3<<2);
+        temp |= (1 << 1);
+        temp &= ~(3 << 2);
         dof6_hal_write(CTRL2_G, &temp, 1);
         break;
     default:
@@ -833,14 +833,14 @@ void dof6_reboot_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL3_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write(CTRL3_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<7);
+        temp &= ~(1 << 7);
         dof6_hal_write(CTRL3_C, &temp, 1);
         break;
     }
@@ -852,14 +852,14 @@ void dof6_continous_data_update_enable(bool update)
     uint8_t temp;
     dof6_hal_read(CTRL3_C, &temp, 1);
 
-    switch(update)
+    switch (update)
     {
     case true:
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write(CTRL3_C, &temp, 1);
         break;
     case false:
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write(CTRL3_C, &temp, 1);
         break;
     }
@@ -871,15 +871,15 @@ int8_t dof6_set_interrupt_activation_level(level_t level)
     int8_t status = 0;
     dof6_hal_read(CTRL3_C, &temp, 1);
 
-    switch(level)
+    switch (level)
     {
     case HIGH:
-    temp &= ~(1<<5);
-    dof6_hal_write(CTRL3_C, &temp, 1);
+        temp &= ~(1 << 5);
+        dof6_hal_write(CTRL3_C, &temp, 1);
         break;
     case LOW:
-    temp |= (1<<5);
-    dof6_hal_write(CTRL3_C, &temp, 1);
+        temp |= (1 << 5);
+        dof6_hal_write(CTRL3_C, &temp, 1);
         break;
     default:
         status = -1;
@@ -896,13 +896,13 @@ int8_t dof6_set_int_mode(int_mode_t mode)
     int8_t status = 0;
     dof6_hal_read(CTRL3_C, &temp, 1);
 
-    switch(mode)
+    switch (mode)
     {
     case PUSH_PULL:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write(CTRL3_C, &temp, 1);
     case OPEN_DRAIN:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(CTRL3_C, &temp, 1);
     default:
         status = -1;
@@ -927,11 +927,11 @@ void dof6_accel_bandwith_selection_enable (bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<7);
+        temp &= ~(1 << 7);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     }
@@ -942,14 +942,14 @@ void dof6_gyro_sleepmode_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL4_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     }
@@ -960,14 +960,14 @@ void dof6_int2_on_int1_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL4_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<5);
+        temp |= (1 << 5);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<5);
+        temp &= ~(1 << 5);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     }
@@ -978,14 +978,14 @@ void dof6_fifo_temp_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL4_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     }
@@ -996,14 +996,14 @@ void dof6_da_timer_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL4_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<3);
+        temp |= (1 << 3);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<3);
+        temp &= ~(1 << 3);
         dof6_hal_write(CTRL4_C, &temp, 1);
         break;
     }
@@ -1014,7 +1014,7 @@ void dof6_fifo_threshold_level_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL4_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
         temp |= 1;
@@ -1033,25 +1033,25 @@ int8_t dof6_set_burstmode_rounding(rounding_t rounding)
     int8_t status = 0;
     dof6_hal_read(CTRL5_C, &temp, 1);
 
-    switch(rounding)
+    switch (rounding)
     {
     case NO_ROUNDING:
-        temp &= ~(7<<5);
+        temp &= ~(7 << 5);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     case ACC_ONLY:
-        temp &= ~(7<<5);
-        temp |= (1<<5);
+        temp &= ~(7 << 5);
+        temp |= (1 << 5);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     case GYRO_ONLY:
-        temp &= ~(7<<5);
-        temp |= (1<<6);
+        temp &= ~(7 << 5);
+        temp |= (1 << 6);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     case GYRO_AND_ACC:
-        temp &= ~(7<<5);
-        temp |= (3<<5);
+        temp &= ~(7 << 5);
+        temp |= (3 << 5);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     default:
@@ -1067,20 +1067,20 @@ int8_t dof6_gyro_set_selftest(selftest_t set)
     int8_t status = 0;
     dof6_hal_read(CTRL5_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case NORMAL_MODE:
-        temp &= (3<<2);
+        temp &= (3 << 2);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     case POS_SIGN:
-        temp &= ~(3<<2);
-        temp |= (1<<2);
+        temp &= ~(3 << 2);
+        temp |= (1 << 2);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     case NEG_SIGN:
-        temp &= ~(3<<2);
-        temp |= (3<<2);
+        temp &= ~(3 << 2);
+        temp |= (3 << 2);
         dof6_hal_write(CTRL5_C, &temp, 1);
         break;
     default:
@@ -1096,7 +1096,7 @@ int8_t dof6_accel_set_selftest(selftest_t set)
     int8_t status = 0;
     dof6_hal_read(CTRL5_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case NORMAL_MODE:
         temp &= 3;
@@ -1124,14 +1124,14 @@ void dof6_gyro_data_egde_trigger_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL6_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<7);
+        temp &= ~(1 << 7);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     }
@@ -1142,14 +1142,14 @@ void dof6_gyro_data_level_trigger_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL6_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     }
@@ -1160,14 +1160,14 @@ void dof6_gyro_level_sensitive_latch_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL6_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<5);
+        temp |= (1 << 5);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<5);
+        temp &= ~(1 << 5);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     }
@@ -1178,14 +1178,14 @@ void dof6_accel_high_perfomance_operating_mode_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL6_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     case false:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(CTRL6_C, &temp, 1);
         break;
     }
@@ -1196,14 +1196,14 @@ void dof6_gyro_high_perfomance_operating_mode_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL7_G, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp &= ~(1<<7);
+        temp &= ~(1 << 7);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     case false:
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     }
@@ -1214,14 +1214,14 @@ void dof6_gyro_high_pass_filter_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL7_G, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     }
@@ -1232,13 +1232,13 @@ void dof6_gyro_hp_filter_reset_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL7_G, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<3);
+        temp |= (1 << 3);
         dof6_hal_write(CTRL7_G, &temp, 1);
     case false:
-        temp &= ~(1<<3);
+        temp &= ~(1 << 3);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     }
@@ -1249,14 +1249,14 @@ void dof6_rounding_function_enable ( bool set )
     uint8_t temp;
     dof6_hal_read(CTRL7_G, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<2);
+        temp &= ~(1 << 2);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     }
@@ -1271,21 +1271,21 @@ int8_t dof6_gyro_set_hp_filter_cutoff_freq(hp_cutoff_freq_t set)
     switch (set)
     {
     case HZ_0_0081:
-        temp &= ~(3<<4);
+        temp &= ~(3 << 4);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     case HZ_0_0324:
-        temp &= ~(3<<4);
-        temp |= (1<<4);
+        temp &= ~(3 << 4);
+        temp |= (1 << 4);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     case HZ_2_07:
-        temp &= ~(3<<4);
-        temp |= (1<<5);
+        temp &= ~(3 << 4);
+        temp |= (1 << 5);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     case HZ_16_32:
-        temp |= (3<<4);
+        temp |= (3 << 4);
         dof6_hal_write(CTRL7_G, &temp, 1);
         break;
     default:
@@ -1302,11 +1302,11 @@ void dof6_accel_low_pass_filter2_enable(bool set)
 
     switch (set) {
     case true:
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write(CTRL8_XL, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<7);
+        temp &= ~(1 << 7);
         dof6_hal_write(CTRL8_XL, &temp, 1);
         break;
     }
@@ -1319,7 +1319,7 @@ int8_t dof6_accel_slope_and_high_pass_config(slope_hp_config_t configuration)
     int8_t status = 0;
     dof6_hal_read(CTRL8_XL, &temp, 1);
 
-    switch(configuration)
+    switch (configuration)
     {
     case ODR_XL_50:
         temp &= ~(3 << 5);
@@ -1350,11 +1350,11 @@ void dof6_accel_slope_filter_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(CTRL8_XL, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<2);
+        temp &= ~(1 << 2);
         dof6_hal_write(CTRL8_XL, &temp, 1);
         break;
     }
@@ -1384,11 +1384,11 @@ void dof6_accel_z_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<5);
+        temp |= (1 << 5);
         dof6_hal_write(CTRL9_XL, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<5);
+        temp &= ~(1 << 5);
         dof6_hal_write(CTRL9_XL, &temp, 1);
         break;
     }
@@ -1402,11 +1402,11 @@ void dof6_accel_y_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(CTRL9_XL, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write(CTRL9_XL, &temp, 1);
         break;
     }
@@ -1419,11 +1419,11 @@ void dof6_accel_x_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<3);
+        temp |= (1 << 3);
         dof6_hal_write(CTRL9_XL, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<3);
+        temp &= ~(1 << 3);
         dof6_hal_write(CTRL9_XL, &temp, 1);
         break;
     }
@@ -1436,11 +1436,11 @@ void dof6_gyro_x_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<3);
+        temp |= (1 << 3);
         dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<3);
+        temp &= ~(1 << 3);
         dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     }
@@ -1453,11 +1453,11 @@ void dof6_gyro_y_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     }
@@ -1470,11 +1470,11 @@ void dof6_gyro_z_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<5);
+        temp |= (1 << 5);
         dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<5);
+        temp &= ~(1 << 5);
         dof6_hal_write(CTRL10_C, &temp, 1);
         break;
     }
@@ -1484,7 +1484,7 @@ void dof6_reset_pedometer_counter()
 {
     uint8_t temp;
     dof6_hal_read(CTRL10_C, &temp, 1);
-    temp |= (1<<1);
+    temp |= (1 << 1);
     dof6_hal_write(CTRL10_C, &temp, 1);
 }
 
@@ -1493,7 +1493,7 @@ void dof6_significant_motion_enable(bool set)
     uint8_t temp;
     dof6_hal_read(CTRL10_C, &temp, 1);
 
-    switch(set)
+    switch (set)
     {
     case true:
         temp |= 1;
@@ -1510,7 +1510,7 @@ int8_t dof6_is_free_fall()
 {
     uint8_t temp;
     dof6_hal_read(WAKE_UP_SRC, &temp, 1);
-    temp = temp & (1<<5);
+    temp = temp & (1 << 5);
     if ( temp == 0 ) return 0;
     else return 1;
 }
@@ -1519,7 +1519,7 @@ int8_t dof6_is_sleep_event()
 {
     uint8_t temp;
     dof6_hal_read(WAKE_UP_SRC, &temp, 1);
-    temp = temp & (1<<4);
+    temp = temp & (1 << 4);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1528,7 +1528,7 @@ int8_t dof6_is_wakeup_event()
 {
     uint8_t temp;
     dof6_hal_read(WAKE_UP_SRC, &temp, 1);
-    temp = temp & (1<<3);
+    temp = temp & (1 << 3);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1537,7 +1537,7 @@ int8_t dof6_is_wakeup_event_on_x()
 {
     uint8_t temp;
     dof6_hal_read(WAKE_UP_SRC, &temp, 1);
-    temp = temp & (1<<2);
+    temp = temp & (1 << 2);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1546,7 +1546,7 @@ int8_t dof6_is_wakeup_event_on_y()
 {
     uint8_t temp;
     dof6_hal_read(WAKE_UP_SRC, &temp, 1);
-    temp = temp & (1<<1);
+    temp = temp & (1 << 1);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1564,7 +1564,7 @@ int8_t dof6_is_tap_event()
 {
     uint8_t temp;
     dof6_hal_read(TAP_SRC, &temp, 1);
-    temp = temp & (1<<6);
+    temp = temp & (1 << 6);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1573,7 +1573,7 @@ int8_t dof6_is_single_tap_event()
 {
     uint8_t temp;
     dof6_hal_read(TAP_SRC, &temp, 1);
-    temp = temp & (1<<5);
+    temp = temp & (1 << 5);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1582,7 +1582,7 @@ int8_t dof6_is_double_tap_event()
 {
     uint8_t temp;
     dof6_hal_read(TAP_SRC, &temp, 1);
-    temp = temp & (1<<4);
+    temp = temp & (1 << 4);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1591,7 +1591,7 @@ int8_t dof6_get_tap_detection_sign()
 {
     uint8_t temp;
     dof6_hal_read(TAP_SRC, &temp, 1);
-    temp = temp & (1<<3);
+    temp = temp & (1 << 3);
     if ( temp == 0) return 1;
     else return 0;
 }
@@ -1600,7 +1600,7 @@ int8_t dof6_is_tap_event_on_x()
 {
     uint8_t temp;
     dof6_hal_read(TAP_SRC, &temp, 1);
-    temp = temp & (1<<2);
+    temp = temp & (1 << 2);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1609,7 +1609,7 @@ int8_t dof6_is_tap_event_on_y()
 {
     uint8_t temp;
     dof6_hal_read(TAP_SRC, &temp, 1);
-    temp = temp & (1<<1);
+    temp = temp & (1 << 1);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1627,7 +1627,7 @@ int8_t dof6_is_changed_position()
 {
     uint8_t temp;
     dof6_hal_read(D6D_SRC, &temp, 1);
-    temp = temp & (1<<6);
+    temp = temp & (1 << 6);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1636,7 +1636,7 @@ int8_t dof6_is_high_event_z()
 {
     uint8_t temp;
     dof6_hal_read(D6D_SRC, &temp, 1);
-    temp = temp & (1<<5);
+    temp = temp & (1 << 5);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1645,7 +1645,7 @@ int8_t dof6_is_low_event_z()
 {
     uint8_t temp;
     dof6_hal_read(D6D_SRC, &temp, 1);
-    temp = temp & (1<<4);
+    temp = temp & (1 << 4);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1654,7 +1654,7 @@ int8_t dof6_is_high_event_y()
 {
     uint8_t temp;
     dof6_hal_read(D6D_SRC, &temp, 1);
-    temp = temp & (1<<3);
+    temp = temp & (1 << 3);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1663,7 +1663,7 @@ int8_t dof6_is_low_event_y()
 {
     uint8_t temp;
     dof6_hal_read(D6D_SRC, &temp, 1);
-    temp = temp & (1<<2);
+    temp = temp & (1 << 2);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1672,7 +1672,7 @@ int8_t dof6_is_high_event_x()
 {
     uint8_t temp;
     dof6_hal_read(D6D_SRC, &temp, 1);
-    temp = temp & (1<<1);
+    temp = temp & (1 << 1);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1690,7 +1690,7 @@ int8_t dof6_is_boot_running()
 {
     uint8_t temp;
     dof6_hal_read(STATUS_REG, &temp, 1);
-    temp = temp & (1<<3);
+    temp = temp & (1 << 3);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1699,7 +1699,7 @@ int8_t dof6_is_new_temp_data_available()
 {
     uint8_t temp;
     dof6_hal_read(STATUS_REG, &temp, 1);
-    temp = temp & (1<<2);
+    temp = temp & (1 << 2);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1708,7 +1708,7 @@ int8_t dof6_is_new_gyro_data_available()
 {
     uint8_t temp;
     dof6_hal_read(STATUS_REG, &temp, 1);
-    temp = temp & (1<<1);
+    temp = temp & (1 << 1);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1820,7 +1820,7 @@ int8_t dof6_fifo_get_watermark_status()
 {
     uint8_t temp;
     dof6_hal_read(FIFO_STATUS2, &temp, 1);
-    temp = temp & (1<<7);
+    temp = temp & (1 << 7);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1829,7 +1829,7 @@ int8_t dof6_fifo_get_overrun_status()
 {
     uint8_t temp;
     dof6_hal_read(FIFO_STATUS2, &temp, 1);
-    temp = temp & (1<<6);
+    temp = temp & (1 << 6);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1838,7 +1838,7 @@ int8_t dof6_fifo_get_full_status()
 {
     uint8_t temp;
     dof6_hal_read(FIFO_STATUS2, &temp, 1);
-    temp = temp & (1<<5);
+    temp = temp & (1 << 5);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1847,7 +1847,7 @@ int8_t dof6_fifo_get_empty_status()
 {
     uint8_t temp;
     dof6_hal_read(FIFO_STATUS2, &temp, 1);
-    temp = temp & (1<<4);
+    temp = temp & (1 << 4);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1909,7 +1909,7 @@ int8_t dof6_is_step_detected_in_dt()
 {
     uint8_t temp;
     dof6_hal_read(FUNC_SRC, &temp, 1);
-    temp = temp & (1<<7);
+    temp = temp & (1 << 7);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1918,7 +1918,7 @@ int8_t dof6_is_significant_motion()
 {
     uint8_t temp;
     dof6_hal_read(FUNC_SRC, &temp, 1);
-    temp = temp & (1<<6);
+    temp = temp & (1 << 6);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1927,7 +1927,7 @@ int8_t dof6_is_tilt_event()
 {
     uint8_t temp;
     dof6_hal_read(FUNC_SRC, &temp, 1);
-    temp = temp & (1<<5);
+    temp = temp & (1 << 5);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1936,7 +1936,7 @@ int8_t dof6_is_step_detected()
 {
     uint8_t temp;
     dof6_hal_read(FUNC_SRC, &temp, 1);
-    temp = temp & (1<<4);
+    temp = temp & (1 << 4);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1945,7 +1945,7 @@ int8_t dof6_is_step_overflow_detected()
 {
     uint8_t temp;
     dof6_hal_read(FUNC_SRC, &temp, 1);
-    temp = temp & (1<<3);
+    temp = temp & (1 << 3);
     if ( temp == 0) return 0;
     else return 1;
 }
@@ -1954,14 +1954,14 @@ void dof6_timer_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<7);
+        temp |= (1 << 7);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<7);
+        temp &= ~(1 << 7);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -1971,14 +1971,14 @@ void dof6_pedometer_algorithm_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -1988,14 +1988,14 @@ void dof6_tilt_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<5);
+        temp |= (1 << 5);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<5);
+        temp &= ~(1 << 5);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -2005,14 +2005,14 @@ void dof6_accel_hp_lpf2_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<4);
+        temp &= ~(1 << 4);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -2022,14 +2022,14 @@ void dof6_tap_x_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<3);
+        temp |= (1 << 3);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<3);
+        temp &= ~(1 << 3);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -2039,14 +2039,14 @@ void dof6_tap_y_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<2);
+        temp &= ~(1 << 2);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -2056,14 +2056,14 @@ void dof6_tap_z_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
-        temp |= (1<<1);
+        temp |= (1 << 1);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<1);
+        temp &= ~(1 << 1);
         dof6_hal_write(TAP_CFG, &temp, 1);
         break;
     }
@@ -2073,7 +2073,7 @@ void dof6_latched_interrupt_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_CFG, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
         temp |= 1;
@@ -2090,7 +2090,7 @@ void dof6_4d_enable(bool set)
 {
     uint8_t temp;
     dof6_hal_read(TAP_THS_6D, &temp, 1);
-    switch(set)
+    switch (set)
     {
     case true:
         temp |= 1;
@@ -2108,24 +2108,24 @@ int8_t dof6_6d_set_threshold(d6d_threshold_t threshold)
     uint8_t temp;
     int8_t status = 0;
     dof6_hal_read(TAP_THS_6D, &temp, 1);
-    switch(threshold)
+    switch (threshold)
     {
     case DEGREES_80:
-        temp &= ~(3<<5);
+        temp &= ~(3 << 5);
         dof6_hal_write(TAP_THS_6D, &temp, 1);
         break;
     case DEGREES_70:
-        temp &= ~(3<<5);
-        temp |= (1<<5);
+        temp &= ~(3 << 5);
+        temp |= (1 << 5);
         dof6_hal_write(TAP_THS_6D, &temp, 1);
         break;
     case DEGREES_60:
-        temp &= ~(3<<5);
-        temp |= (1<<6);
+        temp &= ~(3 << 5);
+        temp |= (1 << 6);
         dof6_hal_write(TAP_THS_6D, &temp, 1);
         break;
     case DEGREES_50:
-        temp |= (3<<5);
+        temp |= (3 << 5);
         dof6_hal_write(TAP_THS_6D, &temp, 1);
         break;
     default:
@@ -2154,7 +2154,7 @@ int8_t dof6_double_tap_set_time_gap(uint8_t max_time_tap)
     uint8_t temp;
     int8_t status = 0;
     dof6_hal_read(INT_DUR2, &temp, 1);
-    if (max_time_tap >15) status = -1;
+    if (max_time_tap > 15) status = -1;
     else
     {
         temp |= (max_time_tap << 4);
@@ -2200,16 +2200,16 @@ int8_t dof6_tap_event_select(tap_wakeup_t select)
     dof6_hal_read(WAKE_UP_THS, &temp, 1);
     switch (select)
     {
-        case SINGLE_ONLY:
-            temp &=  ~(1<<7);
-            dof6_hal_write(WAKE_UP_THS, &temp, 1);
-            break;
-        case SINGLE_AND_DOUBLE:
-            temp |= (1<<7);
-            dof6_hal_write(WAKE_UP_THS, &temp, 1);
-        default:
-            status = -1;
-            break;
+    case SINGLE_ONLY:
+        temp &=  ~(1 << 7);
+        dof6_hal_write(WAKE_UP_THS, &temp, 1);
+        break;
+    case SINGLE_AND_DOUBLE:
+        temp |= (1 << 7);
+        dof6_hal_write(WAKE_UP_THS, &temp, 1);
+    default:
+        status = -1;
+        break;
     }
     return status;
 }
@@ -2221,11 +2221,11 @@ void dof6_inactivity_event_enable(bool set)
     switch (set)
     {
     case true:
-        temp |= (1<<6);
+        temp |= (1 << 6);
         dof6_hal_write(WAKE_UP_THS, &temp, 1);
         break;
     case false:
-        temp &= ~(1<<6);
+        temp &= ~(1 << 6);
         dof6_hal_write(WAKE_UP_THS, &temp, 1);
         break;
     }
@@ -2288,14 +2288,14 @@ int8_t dof6_timer_set_resolution(timer_resolution_t resolution)
     int8_t status = 0;
     dof6_hal_read(WAKE_UP_DUR, &temp, 1);
 
-    switch(resolution)
+    switch (resolution)
     {
     case MS_6_4:
-        temp &= ~ (1<<4);
+        temp &= ~ (1 << 4);
         dof6_hal_write(WAKE_UP_DUR, &temp, 1);
         break;
     case MS_25:
-        temp |= (1<<4);
+        temp |= (1 << 4);
         dof6_hal_write(WAKE_UP_DUR, &temp, 1);
         break;
     default:
@@ -2327,7 +2327,7 @@ int8_t dof6_free_fall_set_threshold (free_fall_threshold_t threshold)
     int8_t status = 0;
 
     dof6_hal_read(FREE_FALL, &temp, 1);
-    switch(threshold)
+    switch (threshold)
     {
     case mg_156:
         temp &= ~(7);
@@ -2340,7 +2340,7 @@ int8_t dof6_free_fall_set_threshold (free_fall_threshold_t threshold)
         break;
     case mg_250:
         temp &= ~(7);
-        temp |= (1<<1);
+        temp |= (1 << 1);
         dof6_hal_write(FREE_FALL, &temp, 1);
         break;
     case mg_312:
@@ -2350,19 +2350,19 @@ int8_t dof6_free_fall_set_threshold (free_fall_threshold_t threshold)
         break;
     case mg_344:
         temp &= ~(7);
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(FREE_FALL, &temp, 1);
         break;
     case mg_406:
         temp &= ~(7);
         temp |= 1;
-        temp |= (1<<2);
+        temp |= (1 << 2);
         dof6_hal_write(FREE_FALL, &temp, 1);
         break;
     case mg_469:
         temp &= ~(7);
-        temp |= (1<<1);
-        temp |= (1<<2);
+        temp |= (1 << 1);
+        temp |= (1 << 2);
         dof6_hal_write(FREE_FALL, &temp, 1);
         break;
     case mg_469:
@@ -2381,14 +2381,14 @@ int8_t dof6_int1_set_routing_functions(int1_routing_t interrupt1)
     uint8_t temp = 0;
     uint8_t temp1;
 
-    if(interrupt1.inactive_state == 0) temp |= (1<<7);
-    if(interrupt1.single_tap == 0)     temp |= (1<<6);
-    if(interrupt1.wake_up == 0)        temp |= (1<<5);
-    if(interrupt1.free_fall == 0)      temp |= (1<<4);
-    if(interrupt1.double_tap == 0)     temp |= (1<<3);
-    if(interrupt1.d6 == 0)             temp |= (1<<2);
-    if(interrupt1.tilt == 0) temp |= (1<<1);
-    if(interrupt1.timer == 0) temp |= (1);
+    if (interrupt1.inactive_state == 0) temp |= (1 << 7);
+    if (interrupt1.single_tap == 0)     temp |= (1 << 6);
+    if (interrupt1.wake_up == 0)        temp |= (1 << 5);
+    if (interrupt1.free_fall == 0)      temp |= (1 << 4);
+    if (interrupt1.double_tap == 0)     temp |= (1 << 3);
+    if (interrupt1.d6 == 0)             temp |= (1 << 2);
+    if (interrupt1.tilt == 0) temp |= (1 << 1);
+    if (interrupt1.timer == 0) temp |= (1);
 
     dof6_hal_write (MD1_CFG, &temp, 1);
     dof6_hal_read (MD1_CFG, &temp1, 1);
@@ -2401,13 +2401,13 @@ int8_t dof6_int2_set_routing_functions(int2_routing_t interrupt2)
     uint8_t temp = 0;
     uint8_t temp1;
 
-    if(interrupt2.inactive_state2 == 0) temp |= (1<<7);
-    if(interrupt2.single_tap2 == 0)     temp |= (1<<6);
-    if(interrupt2.wake_up2 == 0)        temp |= (1<<5);
-    if(interrupt2.free_fall2 == 0)      temp |= (1<<4);
-    if(interrupt2.double_tap2 == 0)     temp |= (1<<3);
-    if(interrupt2.d62 == 0)             temp |= (1<<2);
-    if(interrupt2.tilt2 == 0) temp |= (1<<1);
+    if (interrupt2.inactive_state2 == 0) temp |= (1 << 7);
+    if (interrupt2.single_tap2 == 0)     temp |= (1 << 6);
+    if (interrupt2.wake_up2 == 0)        temp |= (1 << 5);
+    if (interrupt2.free_fall2 == 0)      temp |= (1 << 4);
+    if (interrupt2.double_tap2 == 0)     temp |= (1 << 3);
+    if (interrupt2.d62 == 0)             temp |= (1 << 2);
+    if (interrupt2.tilt2 == 0) temp |= (1 << 1);
 
     dof6_hal_write (MD2_CFG, &temp, 1);
     dof6_hal_read (MD2_CFG, &temp1, 1);
@@ -2428,20 +2428,20 @@ int8_t dof6_pedometer_set_internal_full_scale(acl_range_t scale)
 
     switch (scale)
     {
-        case ACL_RANGE_2G:
-            temp |= (1<<7);
-            dof6_hal_write(0x0F, &temp, 1);
-            dof6_embedded_functions_access_enable(false);
-            break;
-        case ACL_RANGE_4G:
-            temp &= ~(1<<7);
-            dof6_hal_write(0x0F, &temp, 1);
-            dof6_embedded_functions_access_enable(true);
-            break;
-        default:
+    case ACL_RANGE_2G:
+        temp |= (1 << 7);
+        dof6_hal_write(0x0F, &temp, 1);
         dof6_embedded_functions_access_enable(false);
-            status = -1;
-            break;
+        break;
+    case ACL_RANGE_4G:
+        temp &= ~(1 << 7);
+        dof6_hal_write(0x0F, &temp, 1);
+        dof6_embedded_functions_access_enable(true);
+        break;
+    default:
+        dof6_embedded_functions_access_enable(false);
+        status = -1;
+        break;
     }
     return status;
 }
@@ -2459,9 +2459,9 @@ int8_t dof6_pedometer_set_minimum_threshold(uint8_t threshold)
     }
     else
     {
-    temp |= threshold;
-    dof6_hal_read(0x0F, &temp, 1);
-    dof6_embedded_functions_access_enable(false);
+        temp |= threshold;
+        dof6_hal_read(0x0F, &temp, 1);
+        dof6_embedded_functions_access_enable(false);
     }
     return status;
 }
@@ -2493,7 +2493,7 @@ int8_t dof6_pedometer_set_debounce_time(uint8_t debounce_time)
 
     dof6_hal_read ( 0x14, &temp, 1 );
     if ( (temp >> 3) != debounce_time)
-            status = -1;
+        status = -1;
 
     dof6_embedded_functions_access_enable(false);
     return status;
