@@ -1,0 +1,3 @@
+[submodule "mikroSDK"]
+	path = mikroSDK
+	url = ../mikroSDK.git
