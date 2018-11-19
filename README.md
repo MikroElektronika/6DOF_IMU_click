@@ -4,8 +4,6 @@
 
 # 6DOF_IMU Click
 
----
-
 - **CIC Prefix**  : C6DOFIMU
 - **Author**      : Nenad Filipovic
 - **Verison**     : 1.0.0
