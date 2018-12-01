@@ -2,7 +2,7 @@
 
 ---
 
-# 6DOF_IMU Click
+# 6DOF IMU Click
 
 - **CIC Prefix**  : C6DOFIMU
 - **Author**      : Nenad Filipovic
@@ -11,7 +11,7 @@
 
 ---
 
-We provide a library for the 6DOF_IMU Click on our [LibStock](https://libstock.mikroe.com/projects/view/1541/6dof-imu-click-example) 
+We provide a library for the 6DOF IMU Click on our [LibStock](https://libstock.mikroe.com/projects/view/1541/6dof-imu-click-example) 
 page, as well as a demo application (example), developed using MikroElektronika 
 [compilers](http://shop.mikroe.com/compilers). The demo can run on all the main 
 MikroElektronika [development boards](http://shop.mikroe.com/development-boards).
